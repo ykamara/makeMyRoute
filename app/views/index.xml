@@ -1,5 +1,14 @@
 <Alloy>
 	<Window class="container">
-		<View id="mapView" height="50%" width="100%"></View>
+		 <TextField id="textField"></TextField>
+		 <View id="view">
+		 <Picker id="picker"></Picker>
+		 </View>
+		 <TableView id="table">
+            <TableViewSection id="sectionFruit" headerTitle="Enter Your Place To Visit">
+                <TableViewRow id="selectplace"></TableViewRow>
+                </TableViewSection>
+           </TableView>
+           <Button id='addtomilestone'>Add To Milestone</Button>
 	</Window>
 </Alloy>

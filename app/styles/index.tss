@@ -1,8 +1,56 @@
 ".container": {
 	backgroundColor:"white"
 },
-"Label": {
-	width: Ti.UI.SIZE,
-	height: Ti.UI.SIZE,
-	color: "#000"
-} 
+"#textField": {
+	borderStyle : Titanium.UI.INPUT_BORDERSTYLE_ROUNDED,
+	top:"5%",
+	left:"10%",
+	width:"80%",
+	height:"10%",
+	hintText : ' Your Current State',
+	borderRadius : 15,
+	borderWidth : 2,
+	backgroundColor : 'lightgray',				
+	//keyboardType : Titanium.UI.KEYBOARD_DEFAULT,
+	//returnKeyType : Titanium.UI.RETURNKEY_NEXT,
+	color:'black'			
+} ,
+'#view':{
+	top:"20%",
+	left:"10%",
+	width:"80%",
+	height:"10%",
+	backgroundColor : 'lightgray',
+	borderRadius : 15,
+	borderWidth : 2,			
+},
+'#picker':{
+	top:"0%",
+	left:"0%",
+	width:"100%",
+	height:"100%",
+	//backgroundColor : 'light gray',	
+	//color:'black',
+	borderRadius : 15,
+	borderWidth : 2,
+},
+'#table':{
+	top:'40%',
+	left:"10%",
+	width:"80%",
+	height:'30%',
+	backgroundColor : 'lightgray',
+},
+'#selectplace':{
+	hright:'10%'
+},
+'#addtomilestone':{
+	top:'75%',
+	left:"10%",
+	width:"80%",
+	height:'10%',
+	backgroundColor : 'lightgray',
+	color:'black'
+}
+
+    

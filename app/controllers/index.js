@@ -47,5 +47,18 @@ $.dialog.addEventListener('click',function(e){
 		$.dialog.hide();
 	}	
 	});
+
+var xhr = Ti.Network.createHTTPClient({
+	onload: function (e){
+		alert(this.responseText);
+	},
+	onsuccess: function (e){
+		alert(e.error);
+	}
+});
+var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=12.9,77.6&radius=621.37&key=AIzaSyA_sCSDoOYmJDgLOIn_x3p52Zyg1dHpBYE";
+
+xhr.open('GET', url);
+xhr.send();
 	
 $.index.open();

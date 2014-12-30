@@ -1,12 +1,18 @@
 <Alloy>
 	<Window class="container">
-		 <TextField id="textField"></TextField>
-		 <View id="view">
-		 <Picker id="picker"></Picker>
-		 </View>
-		 <TableView id="table">
-            
-           </TableView>
-           <Button id='addtomilestone'>Add To Milestone</Button>
+		<Require id="topbar" src="common/navbar"></Require>
+		<TextField id="textField"></TextField>
+		<View id="view">
+			<Picker id="picker"></Picker>
+		</View>
+		<TableView id="table"></TableView>
+		<Button id='addtomilestone'>Add To Milestone</Button>
+		<AlertDialog id="dialog" cancel="1">
+			<TextField id='dailogtextfield'></TextField>
+			<ButtonNames>
+				<ButtonName id='cancel'>Ok</ButtonName>
+				<ButtonName id='ok'>Cancel</ButtonName>
+			</ButtonNames>
+		</AlertDialog>
 	</Window>
 </Alloy>

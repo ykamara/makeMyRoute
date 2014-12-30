@@ -1,0 +1,12 @@
+<Alloy>
+	<View class="container">
+		<View id="leftNavBtn">
+			<ImageView id="left"/>
+		</View>
+		<View id="middleText">
+			<Label id="midText"/>
+		</View>
+		<View id="rightNavBtn">
+		</View>
+	</View>
+</Alloy>

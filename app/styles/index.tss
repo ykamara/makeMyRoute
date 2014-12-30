@@ -3,7 +3,7 @@
 },
 "#textField": {
 	borderStyle : Titanium.UI.INPUT_BORDERSTYLE_ROUNDED,
-	top:"5%",
+	top:"10%",
 	left:"10%",
 	width:"80%",
 	height:"10%",
@@ -16,7 +16,7 @@
 	color:'black'			
 } ,
 '#view':{
-	top:"20%",
+	top:"25%",
 	left:"10%",
 	width:"80%",
 	height:"10%",
@@ -35,22 +35,30 @@
 	borderWidth : 2,
 },
 '#table':{
-	top:'40%',
+	top:'45%',
 	left:"10%",
 	width:"80%",
 	height:'30%',
 	backgroundColor : 'lightgray',
 },
+/*
 '#selectplace':{
 	hright:'10%'
-},
+},*/
+
 '#addtomilestone':{
-	top:'75%',
+	top:'80%',
 	left:"10%",
 	width:"80%",
 	height:'10%',
 	backgroundColor : 'lightgray',
 	color:'black'
-}
-
+},
+'#dialog':{
+	title: 'Enter Route Name',
+	bubbleParent: 'false'
+},
+'#dailogtextfield':{
+	hintText : 'Enter Text'
+	}
     

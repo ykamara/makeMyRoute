@@ -1,0 +1,20 @@
+
+"#mapView": {
+	height: "55%",
+	top:'0%'
+},
+'#table':{
+	top:'57%',
+	left:"5%",
+	width:"90%",
+	height:'30%',
+	backgroundColor : 'lightgray',
+},
+'#modifyRoute':{
+	top:'89%',
+	left:"10%",
+	width:"80%",
+	height:'9%',
+	backgroundColor : 'lightgray',
+	color:'black'
+}

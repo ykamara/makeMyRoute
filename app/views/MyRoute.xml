@@ -1,0 +1,7 @@
+<Alloy>
+	<Window backgroundColor="white">
+		<View id="mapView"/>
+		<TableView id="table"></TableView>
+		<Button id='modifyRoute'>Modify Route</Button>
+	</Window>
+</Alloy>

@@ -15,8 +15,8 @@
 	//returnKeyType : Titanium.UI.RETURNKEY_NEXT,
 	color:'black'			
 } ,
-'#view':{
-	top:"25%",
+'.view':{
+	top:20,
 	left:"10%",
 	width:"80%",
 	height:"10%",
@@ -24,7 +24,7 @@
 	borderRadius : 15,
 	borderWidth : 2,			
 },
-'#picker':{
+'.picker':{
 	top:"0%",
 	left:"0%",
 	width:"100%",
@@ -35,7 +35,7 @@
 	borderWidth : 2,
 },
 '#table':{
-	top:'45%',
+	top: 45,
 	left:"10%",
 	width:"80%",
 	height:'30%',

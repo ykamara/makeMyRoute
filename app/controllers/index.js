@@ -9,8 +9,14 @@ var place = {
 //set text value for state
 place.state = "Andaman & Nicobar Islands";
 
-place.cities = _.pluck(data.places, 'TOWN');
-//alert(JSON.stringify(place.cities));
+function fetchCities(state){
+	var stateData = _.where(data.places,{STATE: "Punjab"});
+	return _.pluck(stateData, 'TOWN');
+};
+
+place.cities = fetchCities(); 
+
+console.log("@@@@@ "+ JSON.stringify(place.cities));
 
 var fillCities = function() {
 	var cities = [];
@@ -20,8 +26,17 @@ var fillCities = function() {
 		});
 		cities.push(pickerRow);
 	}
-	$.picker.add(cities);
+	$.cityPicker.add(cities);
 };
+
+function fillStates(){
+	var pickerRow = Ti.UI.createPickerRow({
+			title : "Punjab"
+		});	
+	$.statePicker.add(pickerRow);
+};
+
+fillStates();
 fillCities();
 var tabledata = [];
 for ( i = 0; i < placestoshow.length; i++) {

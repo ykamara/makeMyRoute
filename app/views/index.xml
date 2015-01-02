@@ -6,7 +6,7 @@
 			<Picker id="statePicker" class="picker"></Picker>
 		</View>
 		<View class="view">
-			<Picker id="cityPicker" class="picker"></Picker>
+			<Picker id="cityPicker" class="picker" onChange="getLatLong"></Picker>
 		</View>
 		<TableView id="table"></TableView>
 		<Button id='addtomilestone'>Add To Milestone</Button>

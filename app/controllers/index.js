@@ -77,7 +77,7 @@ function getLatLong(e) {
 					alert(e.error);
 				}
 			});
-			var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + myLat + "," + myLon + "&radius=50000&key=AIzaSyA_sCSDoOYmJDgLOIn_x3p52Zyg1dHpBYE";
+			var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + myLat + "," + myLon + "&types=hindu_temple|stadium|shopping_mall|place_of_worship&rankby=distance&key=AIzaSyA_sCSDoOYmJDgLOIn_x3p52Zyg1dHpBYE";
 
 			xhr.open('POST', url);
 			xhr.send();

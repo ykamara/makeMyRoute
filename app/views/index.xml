@@ -1,15 +1,15 @@
 <Alloy>
 	<Window class="container" layout="vertical">
 		<Require id="topbar" src="common/navbar"></Require>
-		<View layout="vertical">
+		<View layout="vertical" visible="true" height="Ti.UI.SIZE">
 			<View class="view">
 			<Picker id="statePicker" class="picker"></Picker>
 		</View>
 		<View class="view">
 			<Picker id="cityPicker" class="picker" onChange="getLatLong"></Picker>
 		</View>
-		<TableView id="table"></TableView>
-		<Button id='addtomilestone'>Add To Milestone</Button>
+		<TableView id="table" onClick="selectPlace"></TableView>
+		<Button id="addToMilestone" onClick="createRoute">Add To Milestone</Button>
 		</View>
 		<AlertDialog id="dialog" cancel="1">
 			<TextField id='dailogtextfield'></TextField>

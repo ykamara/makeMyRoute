@@ -7,13 +7,12 @@ var place = {
 	cities : []
 };
 
-//set text value for state
-//place.state = "Andaman & Nicobar Islands";
-
+alert(data.places.length);
 function fetchCities(state) {
 	var stateData = _.where(data.places, {
-		STATE : "Punjab"
+		STATE : "Karnataka"
 	});
+	console.log(" ARRAY "+stateData);
 	return _.uniq(_.pluck(stateData, 'DISTRICT'));
 };
 
@@ -38,7 +37,7 @@ var fillCities = function() {
 
 function fillStates() {
 	var pickerRow = Ti.UI.createPickerRow({
-		title : "Punjab"
+		title : "Karnataka"
 	});
 	$.statePicker.add(pickerRow);
 };

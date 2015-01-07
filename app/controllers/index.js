@@ -1,10 +1,12 @@
 var data = require('data');
 //alert(data.places.length);
 //var placestoshow = ["place1", "place2", "place3", "place4", "place5", "place6", "place7", "place8", "place8", "place9"];
-
+var count = 0;
 var place = {
 	state : "",
-	cities : []
+	cities : [],
+	lat:0,
+	lng:0
 };
 
 //set text value for state
@@ -48,6 +50,7 @@ fillCities();
 //$.picker.add(data);
 
 function getLatLong(e) {
+
 	var myAddress = e.selectedValue[0];
 	var xhrGeocode = Ti.Network.createHTTPClient();
 	//xhrGeocode.setTimeout(120000);
@@ -62,7 +65,8 @@ function getLatLong(e) {
 		if (response.status == 'OK' && response.results != undefined && response.results.length > 0) {
 			var myLat = response.results[0].geometry.location.lat;
 			var myLon = response.results[0].geometry.location.lng;
-
+			place.lat = myLat;
+			place.lng = myLon;
 			var xhr = Ti.Network.createHTTPClient({
 				onload : function(e) {
 					var response = JSON.parse(this.responseText);
@@ -79,6 +83,8 @@ function getLatLong(e) {
 							isMilestone : false,
 						});
 						tabledata.push(tableviewrow);
+						count = 0;
+						$.label1.hide();
 					}
 					$.table.data = tabledata;
 				},
@@ -100,23 +106,45 @@ function getLatLong(e) {
 	xhrGeocode.send();
 
 };
-var placesSelected=[];
+
+var placesSelected = [];
 function selectPlace(e) {
 	var selectedRow = e.row;
-	//placesSelected.push
 	if (selectedRow.isMilestone) {
 		selectedRow.setBackgroundColor("light gray");
 		selectedRow.isMilestone = false;
+		count--;
+		for (var i = 0; i <= placesSelected.length; i++) {
+			if (placesSelected[i] == selectedRow) {
+				placesSelected.splice(i, 1);
+				//alert('removed::' + placesSelected.length);
+			}
+		}
+		if (count >= 1) {
+			$.label1.show();
+			$.label1.setText("Selected Places:" + count);
+		} else {
+			$.label1.hide();
+		}
 	} else {
 		selectedRow.setBackgroundColor("cyan");
 		selectedRow.isMilestone = true;
+		count++;
+		$.label1.setText("Selected Places:" + count);
+		placesSelected.push(selectedRow);
+		//alert('added::' + placesSelected.length);
+		if (count >= 1) {
+			$.label1.show();
+			$.label1.setText("Selected Places:" + count);
+		} else {
+			$.label1.hide();
+		}
 	}
 
 }
 
 function createRoute(e) {
-	//alert("jkljhjk");
-		$.dialog.show();
+	$.dialog.show();
 };
 
 $.dialog.addEventListener('click', function(e) {
@@ -124,7 +152,7 @@ $.dialog.addEventListener('click', function(e) {
 		$.dailogtextfield.value = "";
 	} else {
 		$.dailogtextfield.value = "";
-		Alloy.createController('/MyRoute').getView().open();
+		Alloy.createController('/MyRoute', {places: placesSelected, city: {latitude: place.lat, longitude: place.lng}}).getView().open();
 		$.dialog.hide();
 	}
 });

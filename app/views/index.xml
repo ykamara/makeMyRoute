@@ -1,16 +1,17 @@
 <Alloy>
 	<Window class="container" layout="vertical">
 		<Require id="topbar" src="common/navbar"></Require>
-		<View layout="vertical" visible="true" height="Ti.UI.SIZE">
+		<View layout="vertical" visible="true"  height="75%">
 			<View class="view">
 			<Picker id="statePicker" class="picker"></Picker>
-		</View>
-		<View class="view">
+			</View>
+			<View class="view">
 			<Picker id="cityPicker" class="picker" onChange="getLatLong"></Picker>
+			</View>
+			<TableView id="table" onClick="selectPlace"></TableView>
+			<Label id="label1"/>
 		</View>
-		<TableView id="table" onClick="selectPlace"></TableView>
 		<Button id="addToMilestone" onClick="createRoute">Add To Milestone</Button>
-		</View>
 		<AlertDialog id="dialog" cancel="1">
 			<TextField id='dailogtextfield'></TextField>
 			<ButtonNames>

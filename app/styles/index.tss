@@ -35,19 +35,24 @@
 	borderWidth : 2,
 },
 '#table':{
-	top: 45,
+	top: 40,
 	left:"10%",
 	width:"80%",
-	height:'30%',
+	height:'50%',
 	backgroundColor : 'lightgray',
 },
 /*
 '#selectplace':{
 	hright:'10%'
 },*/
-
+'#label1':{
+	top:0,
+	width:"80%",
+	height:'30%',
+	color:'black'
+},
 '#addtomilestone':{
-	top:100,
+	top:50,
 	width:"80%",
 	height:'10%',
 	backgroundColor : 'lightgray',

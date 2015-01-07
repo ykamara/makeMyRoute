@@ -9,7 +9,7 @@ var place = {
 	lng:0
 };
 
-alert(data.places.length);
+//alert(data.places.length);
 function fetchCities(state) {
 	var stateData = _.where(data.places, {
 		STATE : "Karnataka"

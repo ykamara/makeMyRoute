@@ -62,19 +62,19 @@ function getLocation() {
 	if (Ti.Network.online) {
 		Ti.Geolocation.purpose = "Receive User Location";
 		Titanium.Geolocation.getCurrentPosition(function(e) {
-			currentlat = 34.65;
-			currentlon = 27.67;
+			//currentlat = 34.65;
+			//currentlon = 27.67;
 			if (!e.success || e.error) {
 				alert('Could not find the device location');
 				return;
 			} else {
 				//var annotations = [];
-				currentlon = e.coords.longitude;
 				currentlat = e.coords.latitude;
+				currentlon = e.coords.longitude;
 				//alert("lat:::" + currentlat + "lon:::" + currentlon);
 				var annotation1 = Map.createAnnotation({
 					latitude : currentlat,
-					longitude : currentlat,
+					longitude : currentlon,
 					//animate: true,
 					pincolor : Map.ANNOTATION_GREEN,
 				});
@@ -93,7 +93,8 @@ function getLocation() {
 					annotation1.title = addrs.toString();
 					currentname=annotation1.title;
 				});
-				getcurrentPosition(currentlat, currentlon,currentname);
+				//getcurrentPosition(currentlat, currentlon,currentname);
+				setRoutePoints(currentlat, currentlon,currentname);
 				annotations.push(annotation1);
 				mapview.addAnnotations(annotations);
 			}
@@ -112,11 +113,11 @@ function calDist(cLat, cLon, lt, ln) {
 	return kms;
 };
 
-function getRoute(currentlat, currentlon) {
+function getRoute(currentlat, currentlon,currentname) {
 	var source = {
 		latitude : currentlat,
 		longitude : currentlon,
-		name : ""
+		name :currentname
 	};
 	if (params.places.length > 1) {
 		for (var i = 0; i < params.places.length - 1; i++) {
@@ -130,7 +131,7 @@ function getRoute(currentlat, currentlon) {
 			} else {
 				source.latitude = params.places[i + 1].latitude;
 				source.longitude = params.places[i + 1].longitude;
-				source.name = params.places[i].title;
+				source.name = params.places[i+1].title;
 			}
 		}
 		//source=  Math.min(calDist(currentlon,currentlon,params.places[i].latitude,params.places[i].longitude),calDist(currentlon,currentlon,params.places[i+1].latitude,params.places[i+1].longitude));
@@ -152,10 +153,11 @@ function findAndRemove(array, searchValue) {
 	return array;
 }
 
-function getcurrentPosition(currentlat, currentlon) {
+function setRoutePoints(currentlat, currentlon, currentname) {
 	routePoints.push({
 		latitude : currentlat,
-		longitude : currentlon
+		longitude : currentlon,
+		name: currentname
 	});
 	//alert("lat:::*****" + currentlat + "lon:::****" + currentlon);
 	var len = params.places.length;
@@ -173,13 +175,12 @@ function getcurrentPosition(currentlat, currentlon) {
 	//console.log("MY FINAL ARRAY-----  " + JSON.stringify(routePoints));
 	alert("MY FINAL ARRAY-----  " + JSON.stringify(routePoints));
 	markMilestone(routePoints);
-}
+};
 
 //var milestones = ["MS1:Place2", "MS2:Place1", "MS3:Place3", "MS4:Place6", "MS5:Place7", "MS6:Place4", "MS7:Place5"];
 function markMilestone(routePoints){
 	
 	for ( i = 1; i < routePoints.length; i++) {
-		
 	var tableviewrow = Ti.UI.createTableViewRow({
 		title :routePoints[i].name,
 		color : 'black',

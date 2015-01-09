@@ -8,7 +8,7 @@ var place = {
 	lat:0,
 	lng:0
 };
-
+var  flag=false;
 //alert(data.places.length);
 function fetchCities(state) {
 	var stateData = _.where(data.places, {
@@ -105,10 +105,15 @@ function getLatLong(e) {
 	xhrGeocode.send();
 
 };
+var selectedRow;
+(function checkSelectedrow(){
+	alert('****'+$.table.data.length);
+})();
 
-var placesSelected = [];
+var placesSelected = $.table.placesSelected || [];
 function selectPlace(e) {
-	var selectedRow = e.row;
+	selectedRow = e.row;
+	flag=true;
 	if (selectedRow.isMilestone) {
 		selectedRow.setBackgroundColor("light gray");
 		selectedRow.isMilestone = false;
@@ -126,6 +131,7 @@ function selectPlace(e) {
 			$.label1.hide();
 		}
 	} else {
+		
 		selectedRow.setBackgroundColor("cyan");
 		selectedRow.isMilestone = true;
 		count++;
@@ -139,7 +145,7 @@ function selectPlace(e) {
 			$.label1.hide();
 		}
 	}
-
+$.table.placesSelected = placesSelected;
 }
 
 function createRoute(e) {
@@ -155,5 +161,16 @@ $.dialog.addEventListener('click', function(e) {
 		$.dialog.hide();
 	}
 });
-
+$.index.addEventListener('focus',function(e){
+	//placesSelected.splice(0,placesSelected.length);
+	//alert(placesSelected.length);
+	/*
+	if(flag==true){
+			selectedRow.setBackgroundColor("light gray");
+			selectedRow.isMilestone = false;
+			 count = 0;
+		}*/
+	
+	
+});
 $.index.open();

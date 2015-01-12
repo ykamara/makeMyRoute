@@ -45,19 +45,20 @@
 '#selectplace':{
 	hright:'10%'
 },*/
+'#addToMilestone':{
+	top:40,
+	width:"80%",
+	height:'10%',
+	backgroundColor : 'lightgray',
+	color:'black'
+},
 '#label1':{
 	top:0,
 	width:"80%",
 	height:'30%',
 	color:'black'
 },
-'#addtomilestone':{
-	top:50,
-	width:"80%",
-	height:'10%',
-	backgroundColor : 'lightgray',
-	color:'black'
-},
+
 '#dialog':{
 	title: 'Enter Route Name',
 	bubbleParent: 'false'

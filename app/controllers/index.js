@@ -1,28 +1,39 @@
+/**
+ * PARAMETERS
+ **/
 var data = require('data');
-//alert(data.places.length);
-//var placestoshow = ["place1", "place2", "place3", "place4", "place5", "place6", "place7", "place8", "place8", "place9"];
 var count = 0;
 var place = {
 	state : "",
 	cities : [],
-	lat:0,
-	lng:0
+	lat : 0,
+	lng : 0
 };
-var  flag=false;
-//alert(data.places.length);
+var flag = false;
+var pickerRow1;
+var selectedRow;
+var placesSelected = [];
+
+/**
+ * HELPER METHODS
+ **/
+/**
+ * function to get cities
+ * @param {Object} state
+ */
 function fetchCities(state) {
 	var stateData = _.where(data.places, {
 		STATE : "Karnataka"
 	});
-	console.log(" ARRAY "+stateData);
+	console.log(" ARRAY " + stateData);
 	return _.uniq(_.pluck(stateData, 'DISTRICT'));
 };
-
 place.cities = fetchCities();
 
-console.log("@@@@@ " + JSON.stringify(place.cities));
-var pickerRow1;
-var fillCities = function() {
+/**
+ * Set city names in city
+ */
+function fillCities() {
 	var cities = [];
 	pickerRow1 = Ti.UI.createPickerRow({
 		title : 'Select City'
@@ -37,6 +48,9 @@ var fillCities = function() {
 	$.cityPicker.add(cities);
 };
 
+/**
+ * Function to get state
+ */
 function fillStates() {
 	var pickerRow = Ti.UI.createPickerRow({
 		title : "Karnataka"
@@ -44,23 +58,21 @@ function fillStates() {
 	$.statePicker.add(pickerRow);
 };
 
-fillStates();
-fillCities();
-//$.picker.add(data);
-
+/**
+ * EVENT LISTENERS
+ */
+/**
+ * Function to get places nearby the selected city
+ */
 function getLatLong(e) {
-
 	var myAddress = e.selectedValue[0];
 	var xhrGeocode = Ti.Network.createHTTPClient();
-	//xhrGeocode.setTimeout(120000);
 	xhrGeocode.onerror = function(e) {
 		alert('Error occurred');
 	};
 
 	xhrGeocode.onload = function(e) {
 		var response = JSON.parse(this.responseText);
-		//alert(JSON.stringify(response));
-		//alert('first response::'+JSON.stringify(response));
 		if (response.status == 'OK' && response.results != undefined && response.results.length > 0) {
 			var myLat = response.results[0].geometry.location.lat;
 			var myLon = response.results[0].geometry.location.lng;
@@ -69,9 +81,6 @@ function getLatLong(e) {
 			var xhr = Ti.Network.createHTTPClient({
 				onload : function(e) {
 					var response = JSON.parse(this.responseText);
-					//alert(JSON.stringify(response));
-					//alert("name::"+response.results[i].name);
-
 					var tabledata = [];
 					for (var i = 0; i < response.results.length; i++) {
 						var tableviewrow = Ti.UI.createTableViewRow({
@@ -92,11 +101,15 @@ function getLatLong(e) {
 					alert(e.error);
 				}
 			});
+
+			// API to get the near by placeses of the selected city
 			var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + myLat + "," + myLon + "&types=hindu_temple|stadium|shopping_mall|place_of_worship&rankby=distance&key=AIzaSyA_sCSDoOYmJDgLOIn_x3p52Zyg1dHpBYE";
 			xhr.open('POST', url);
 			xhr.send();
 		}
 	};
+
+	//API to get the lat and long of the selected city
 	var urlMapRequest = "http://maps.google.com/maps/api/geocode/json?address=" + myAddress.replace(' ', '+');
 	urlMapRequest += "&sensor=" + (Ti.Geolocation.locationServicesEnabled == true);
 
@@ -105,15 +118,26 @@ function getLatLong(e) {
 	xhrGeocode.send();
 
 };
-var selectedRow;
-(function checkSelectedrow(){
-	alert('****'+$.table.data.length);
-})();
 
-var placesSelected = $.table.placesSelected || [];
+/**
+ * Function to create route using selected places
+ */
+function createRoute(e) {
+	if(count==0){
+		alert("Select Atleast One Places");
+	}else{
+		$.dialog.show();
+	}
+	
+};
+
+/**
+ * Function to select/deselect place and get its details
+ * @param {Object} e
+ */
 function selectPlace(e) {
 	selectedRow = e.row;
-	flag=true;
+	flag = true;
 	if (selectedRow.isMilestone) {
 		selectedRow.setBackgroundColor("light gray");
 		selectedRow.isMilestone = false;
@@ -121,7 +145,6 @@ function selectPlace(e) {
 		for (var i = 0; i <= placesSelected.length; i++) {
 			if (placesSelected[i] == selectedRow) {
 				placesSelected.splice(i, 1);
-				//alert('removed::' + placesSelected.length);
 			}
 		}
 		if (count >= 1) {
@@ -131,13 +154,12 @@ function selectPlace(e) {
 			$.label1.hide();
 		}
 	} else {
-		
+
 		selectedRow.setBackgroundColor("cyan");
 		selectedRow.isMilestone = true;
 		count++;
 		$.label1.setText("Selected Places:" + count);
 		placesSelected.push(selectedRow);
-		//alert('added::' + placesSelected.length);
 		if (count >= 1) {
 			$.label1.show();
 			$.label1.setText("Selected Places:" + count);
@@ -145,32 +167,32 @@ function selectPlace(e) {
 			$.label1.hide();
 		}
 	}
-$.table.placesSelected = placesSelected;
 }
 
-function createRoute(e) {
-	$.dialog.show();
-};
-
+/**
+ * Function to enter route name
+ */
 $.dialog.addEventListener('click', function(e) {
 	if (e.index == 1) {
 		$.dailogtextfield.value = "";
 	} else {
 		$.dailogtextfield.value = "";
-		Alloy.createController('/MyRoute', {places: placesSelected, city: {latitude: place.lat, longitude: place.lng}}).getView().open();
+		Alloy.createController('/MyRoute', {
+			places : placesSelected,
+			city : {
+				latitude : place.lat,
+				longitude : place.lng
+			}
+		}).getView().open();
 		$.dialog.hide();
 	}
 });
-$.index.addEventListener('focus',function(e){
-	//placesSelected.splice(0,placesSelected.length);
-	//alert(placesSelected.length);
-	/*
-	if(flag==true){
-			selectedRow.setBackgroundColor("light gray");
-			selectedRow.isMilestone = false;
-			 count = 0;
-		}*/
-	
-	
-});
+
+/**
+ * INITIALIZATION LOGIC
+ */
+
+fillStates();
+fillCities();
 $.index.open();
+
